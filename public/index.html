@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React Github Notetaker</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div id='app'></div>
+  <script src="http://api.backendless.com/sdk/js/latest/backendless.js"></script>
+  <script>
+    var APPLICATION_ID = '7C11CA02-65D6-8A14-FF1B-CF7D7B7CD300',
+    SECRET_KEY = '5EB99BFA-C767-C9F5-FF47-51272C09CC00',
+    VERSION = 'v1'; //default application version;
+    Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+    Backendless.enablePromises();
+
+    // var user = new Backendless.User();
+    // user.email = "taylor@manythingsblue.com";
+    // user.password = "";
+    // Backendless.UserService.register(user);
+  </script>
+	<script src="bundle.js"></script>
+</body>
+</html>
