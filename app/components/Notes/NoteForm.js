@@ -12,6 +12,7 @@ var NoteForm = React.createClass({
       message: this.state.note
     };
     this.props.onNoteSubmit(noteObject);
+    this.state.note = '';
     return false;
   },
   handleNoteChange: function(e) {

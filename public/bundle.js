@@ -24801,7 +24801,7 @@
 
 	var UserData = __webpack_require__(220);
 	var Notes = __webpack_require__(221);
-	var Repos = __webpack_require__(222);
+	var Repos = __webpack_require__(223);
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
@@ -24898,7 +24898,7 @@
 	"use strict";
 
 	var React = __webpack_require__(1);
-	var NoteForm = __webpack_require__(223);
+	var NoteForm = __webpack_require__(222);
 
 	function Note(args) {
 	  args = args || {};
@@ -24913,8 +24913,14 @@
 	    var state = { notes: [] };
 	    var _t = this;
 	    Backendless.Persistence.of(Note).find(true).then(function (coll) {
-	      _t.setState({ notes: coll.data });
+	      var notes = coll.data.map(function (n) {
+	        return new Note({ message: n.message });
+	      });
+	      _t.setState({ notes: notes });
+	      console.log("init state 2", _t.state);
 	    });
+
+	    console.log("init state", this.state);
 
 	    return state;
 	  },
@@ -24924,13 +24930,16 @@
 	    dataStore.save(noteObject);
 
 	    var notes = this.state.notes;
+	    notes.push(noteObject);
+
 	    this.setState({
-	      notes: notes.push(noteObject)
+	      notes: notes
 	    });
 
 	    console.log("after sub", this.state.notes);
 	  },
 	  render: function render() {
+	    console.log(this.state);
 	    var notes = this.state.notes.map(function (n) {
 	      return React.createElement(
 	        "li",
@@ -24954,28 +24963,6 @@
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	var React = __webpack_require__(1);
-
-	var Repos = React.createClass({
-	  displayName: "Repos",
-
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      null,
-	      this.props.repos
-	    );
-	  }
-	});
-
-	module.exports = Repos;
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	var React = __webpack_require__(1);
@@ -24993,6 +24980,7 @@
 	      message: this.state.note
 	    };
 	    this.props.onNoteSubmit(noteObject);
+	    this.state.note = '';
 	    return false;
 	  },
 	  handleNoteChange: function handleNoteChange(e) {
@@ -25009,6 +24997,28 @@
 	});
 
 	module.exports = NoteForm;
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var Repos = React.createClass({
+	  displayName: "Repos",
+
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      null,
+	      this.props.repos
+	    );
+	  }
+	});
+
+	module.exports = Repos;
 
 /***/ }
 /******/ ]);
